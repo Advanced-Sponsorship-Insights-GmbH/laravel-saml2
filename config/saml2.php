@@ -89,6 +89,12 @@ return [
     'errorRoute' => env('SAML2_ERROR_URL'),
 
     /*
+        Enable this following config to pass returned data from the listener to
+        the method in the controller when login.
+    */
+    // 'action' => [SAMLController::class, 'login'],
+
+    /*
     |--------------------------------------------------------------------------
     | Strict mode.
     |--------------------------------------------------------------------------
