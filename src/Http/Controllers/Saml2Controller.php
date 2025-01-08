@@ -59,12 +59,13 @@ class Saml2Controller extends Controller
 
         $user = $auth->getSaml2User();
 
-        event(new SignedIn($user, $auth));
+        $eventResponse = event(new SignedIn($user, $auth));
+        $eventResponseString = (string) $eventResponse[0];
 
         $redirectUrl = $user->getIntendedUrl();
 
         if ($redirectUrl) {
-            return redirect($redirectUrl);
+            return redirect()->action(config('saml2.action'), ['data' => $eventResponseString]);
         }
 
         return redirect($auth->getTenant()->relay_state_url ?: config('saml2.loginRoute'));
